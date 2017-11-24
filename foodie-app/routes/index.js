@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
 
+const { catchErrors } = require('../handlers/errorHandlers');
+
 // Do work here
 router.get('/', storeController.homePage); // call controller to render logic commented out below
 // router.get('/', (req, res) => {
@@ -20,7 +22,8 @@ router.get('/', storeController.homePage); // call controller to render logic co
 //   }); // redner allows us to render a template - in our views
 // });
 router.get('/add', storeController.addStore);
-router.post('/add', storeController.createStore);
+router.post('/add', catchErrors(storeController.createStore)); //how to catch errors with async await - wrap function
+
 
 
 // router.get('/reverse/:name', (req, res) => {
