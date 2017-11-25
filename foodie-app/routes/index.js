@@ -4,8 +4,7 @@ const storeController = require('../controllers/storeController');
 
 const { catchErrors } = require('../handlers/errorHandlers');
 
-// Do work here
-router.get('/', storeController.homePage); // call controller to render logic commented out below
+
 // router.get('/', (req, res) => {
 //   const turtle = {
 //     name: "T",
@@ -21,10 +20,6 @@ router.get('/', storeController.homePage); // call controller to render logic co
 //     title: 'example-title'
 //   }); // redner allows us to render a template - in our views
 // });
-router.get('/add', storeController.addStore);
-router.post('/add', catchErrors(storeController.createStore)); //how to catch errors with async await - wrap function
-
-
 
 // router.get('/reverse/:name', (req, res) => {
 //   // res.send('it works!');
@@ -32,5 +27,14 @@ router.post('/add', catchErrors(storeController.createStore)); //how to catch er
 //   // res.send(req.params.name) // params takes name from url (: in front means it can change)
 //   res.send(reverse);
 // })
+
+
+
+router.get('/', catchErrors(storeController.getStores)); // call controller to render logic commented out below
+router.get('/stores', catchErrors(storeController.getStores));
+router.get('/add', storeController.addStore);
+router.post('/add', catchErrors(storeController.createStore)); //how to catch errors with async await - wrap function
+router.post('/add/:id', catchErrors(storeController.updateStore));
+router.get('/stores/:id/edit', catchErrors(storeController.editStore));
 
 module.exports = router;
